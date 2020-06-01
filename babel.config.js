@@ -8,7 +8,9 @@ module.exports = function (api) {
                 {
                     root: ['./src'],
                 }
-            ]
+            ],
+            ["@babel/plugin-proposal-decorators", { "legacy": true }],
+            ["@babel/plugin-proposal-class-properties", { "loose": true }]
         ]
     };
 };
