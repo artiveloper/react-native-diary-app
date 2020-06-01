@@ -4,13 +4,12 @@ import {
     Text,
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import EditHeader from 'components/EditHeader';
 
 const EditScreen = () => {
     return (
         <SafeAreaView style={styles.container}>
-            <Text>
-                글쓰기 화면
-            </Text>
+            <EditHeader />
         </SafeAreaView>
     );
 };
