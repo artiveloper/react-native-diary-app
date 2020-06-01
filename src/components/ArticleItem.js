@@ -7,6 +7,7 @@ import {
     Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import {useNavigation} from '@react-navigation/core';
 
 const ArticleItem = ({
     article: {
@@ -16,9 +17,17 @@ const ArticleItem = ({
         date,
     }
 }) => {
+
+    const navigation = useNavigation();
+
+    const onPress = () => {
+        navigation.navigate('View');
+    }
+
     return (
         <TouchableOpacity
             activeOpacity={0.8}
+            onPress={onPress}
         >
             <View style={styles.container}>
                 <View style={styles.icon}>

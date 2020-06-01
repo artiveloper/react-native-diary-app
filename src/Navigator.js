@@ -10,6 +10,8 @@ import ListScreen from 'screens/ListScreen';
 import BookmarkScreen from 'screens/BookmarkScreen';
 import EditScreen from 'screens/EditScreen';
 import BlankScreen from 'screens/BlankScreen';
+import ViewScreen from 'screens/ViewScreen';
+
 import {useNavigation} from '@react-navigation/core';
 
 const Tab = createBottomTabNavigator();
@@ -81,6 +83,7 @@ const AppNavigator = () => {
             >
                 <AppStack.Screen name="Tab" component={TabNavigator} />
                 <AppStack.Screen name="Edit" component={EditScreen} />
+                <AppStack.Screen name="View" component={ViewScreen} />
             </AppStack.Navigator>
         </NavigationContainer>
     )
