@@ -5,30 +5,29 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from 'components/Header';
 import ArticleItem from 'components/ArticleItem';
+import {observer} from 'mobx-react';
+import {useStores} from '../stores/RootStore';
 
-const ListScreen = () => {
+const ListScreen = observer(() => {
+
+    const {articleStore} = useStores();
+
     return (
         <SafeAreaView style={styles.container}>
             <Header title="나의글"/>
-            <ArticleItem
-                article={{
-                    id: 1,
-                    title: '청춘의 문장들',
-                    content: '사이에 있는 것들, 쉽게 바뀌는 것들, 덧없이 사라지는 것들이 여전히 내 마음을 잡아끈다.',
-                    date: '2019년 4월 7일',
-                }}
-            />
-            <ArticleItem
-                article={{
-                    id: 2,
-                    title: '문장들',
-                    content: '내게도 꿈이라는 것이 몇 개 있다.',
-                    date: '2019년 4월 7일',
-                }}
-            />
+            {
+                articleStore.articles.map(article => {
+                    return (
+                        <ArticleItem
+                            key={article.id}
+                            article={article}
+                        />
+                    )
+                })
+            }
         </SafeAreaView>
-    );
-};
+    )
+})
 
 const styles = StyleSheet.create({
     container: {
