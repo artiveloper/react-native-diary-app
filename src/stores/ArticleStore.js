@@ -9,6 +9,7 @@ export class ArticleStore {
             title: '청춘의 문장들',
             content: '사이에 있는 것들, 쉽게 바뀌는 것들, 덧없이 사라지는 것들이 여전히 내 마음을 잡아끈다.',
             date: '2019년 4월 7일',
+            bookmarked: true,
         },
         {
             id: 2,
