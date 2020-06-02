@@ -8,7 +8,7 @@ import {
 import {Ionicons} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/core';
 
-const ViewHeader = () => {
+const ViewHeader = ({title}) => {
 
     const navigation = useNavigation();
 
@@ -26,7 +26,7 @@ const ViewHeader = () => {
                 <Ionicons name="ios-arrow-back" size={28} color="#DA5746" />
             </TouchableOpacity>
             <Text style={styles.title}>
-                제목
+                {title}
             </Text>
             <TouchableOpacity
                 activeOpacity={0.8}

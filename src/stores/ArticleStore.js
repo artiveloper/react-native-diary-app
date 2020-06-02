@@ -32,7 +32,13 @@ export class ArticleStore {
             content: content,
             bookmarked: false,
             date: `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate()}일`,
-        }].concat(this.articles)
+        }].concat(this.articles);
+    }
+
+    getArticle = (id) => {
+        return this.articles.find(article => {
+            return article.id === id
+        });
     }
 
 }

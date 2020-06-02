@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/core';
+import {useStores} from '../stores/RootStore';
 
 const ArticleItem = ({
     article: {
@@ -21,7 +22,7 @@ const ArticleItem = ({
     const navigation = useNavigation();
 
     const onPress = () => {
-        navigation.navigate('View');
+        navigation.navigate('View', {id: id});
     }
 
     return (

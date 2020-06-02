@@ -7,11 +7,17 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ViewHeader from 'components/ViewHeader';
-import {useNavigation} from '@react-navigation/core';
+import {useNavigation, useRoute} from '@react-navigation/core';
+import {useStores} from '../stores/RootStore';
 
 const ViewScreen = () => {
 
+    const {articleStore} = useStores();
     const navigation = useNavigation();
+    const route = useRoute();
+
+    const {id} = route.params;
+    const article = articleStore.getArticle(id);
 
     const handleLongPress = () => {
         navigation.navigate('Edit')
@@ -19,18 +25,20 @@ const ViewScreen = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <ViewHeader />
+            <ViewHeader
+                title={article.title}
+            />
             <ScrollView>
                 <TouchableOpacity
                     activeOpacity={0.8}
                     onLongPress={handleLongPress}
                 >
                     <Text style={styles.content}>
-                        블라블라.....
+                        {article.content}
                     </Text>
                 </TouchableOpacity>
                 <Text style={styles.date}>
-                    2019년 9월 14일
+                    {article.date}
                 </Text>
             </ScrollView>
         </SafeAreaView>
@@ -40,6 +48,7 @@ const ViewScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#FFF',
     },
     content: {
         padding: 20,
