@@ -1,26 +1,49 @@
 import React from 'react'
-import {
-    TextInput,
-    View,
-    StyleSheet,
-} from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {StyleSheet, TextInput, View,} from 'react-native'
+import {SafeAreaView} from 'react-native-safe-area-context';
 import EditHeader from 'components/EditHeader';
+import {useStores} from 'stores/RootStore';
+import {useNavigation} from '@react-navigation/core';
 
 const EditScreen = () => {
+
+    const navigation = useNavigation();
+
+    const {articleStore} = useStores();
+
+    const {add} = articleStore;
+
+    let title = '';
+    let content = '';
+
     return (
         <SafeAreaView style={styles.container}>
-            <EditHeader />
+            <EditHeader
+                done={() => {
+                    if (!title || !content) {
+                        alert('데이터를 입력해주세요')
+                        return;
+                    }
+                    add(title, content);
+                    navigation.goBack();
+                }}
+            />
             <View style={styles.body}>
                 <TextInput
                     style={styles.title}
                     placeholder="제목"
+                    onChangeText={(text) => {
+                        title = text;
+                    }}
                 />
                 <View style={styles.divider}/>
                 <TextInput
                     style={styles.content}
                     multiline={true}
                     placeholder="이곳을 눌러 작성을 시작하세요 :)"
+                    onChangeText={(text) => {
+                        content = text;
+                    }}
                 />
             </View>
         </SafeAreaView>

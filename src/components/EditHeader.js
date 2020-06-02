@@ -8,11 +8,11 @@ import {
 import {Ionicons} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/core';
 
-const EditHeader = () => {
+const EditHeader = ({done}) => {
 
     const navigation = useNavigation();
 
-    const onPress = () => {
+    const onPressGoBack = () => {
         navigation.goBack();
     }
 
@@ -20,13 +20,14 @@ const EditHeader = () => {
         <View style={styles.container}>
             <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={onPress}
+                onPress={onPressGoBack}
                 hitSlop={{top: 32, bottom: 32, left: 32, right: 32}}
             >
                 <Ionicons name="ios-arrow-back" size={28} color="#DA5746" />
             </TouchableOpacity>
             <TouchableOpacity
                 activeOpacity={0.8}
+                onPress={done}
             >
                 <Text style={styles.done}>
                     완료

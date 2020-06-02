@@ -1,6 +1,9 @@
-import {observable} from 'mobx';
+import {action, observable} from 'mobx';
 
 export class ArticleStore {
+
+    @observable
+    id = 0;
 
     @observable
     articles = [
@@ -18,5 +21,18 @@ export class ArticleStore {
             date: '2019년 4월 7일',
         }
     ]
+
+    @action
+    add = (title, content) => {
+        this.id = this.articles.length + 1;
+        const now = new Date();
+        this.articles = [{
+            id: this.id,
+            title: title,
+            content: content,
+            bookmarked: false,
+            date: `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate()}일`,
+        }].concat(this.articles)
+    }
 
 }
