@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    FlatList,
     StyleSheet,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -11,20 +12,26 @@ import {useStores} from '../stores/RootStore';
 const ListScreen = observer(() => {
 
     const {articleStore} = useStores();
+    const {articles} = articleStore
+
+    const renderItem = ({item}) => (
+        <ArticleItem
+            article={item}
+        />
+    )
+
+    const keyExtractor = (item) => {
+        return `${item.id}`
+    }
 
     return (
         <SafeAreaView style={styles.container}>
             <Header title="나의글"/>
-            {
-                articleStore.articles.map(article => {
-                    return (
-                        <ArticleItem
-                            key={article.id}
-                            article={article}
-                        />
-                    )
-                })
-            }
+            <FlatList
+                data={articles}
+                renderItem={renderItem}
+                keyExtractor={keyExtractor}
+            />
         </SafeAreaView>
     )
 })
