@@ -12,7 +12,7 @@ import EditScreen from 'screens/EditScreen';
 import BlankScreen from 'screens/BlankScreen';
 import ViewScreen from 'screens/ViewScreen';
 
-import {useNavigation} from '@react-navigation/core';
+import {useNavigation} from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 const AppStack = createStackNavigator();
