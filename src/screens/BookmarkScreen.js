@@ -7,10 +7,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from 'components/Header';
 import ArticleItem from 'components/ArticleItem';
 import {useStores} from 'stores/RootStore';
+import {observer} from 'mobx-react';
 
-const BookmarkScreen = () => {
+const BookmarkScreen = observer(() => {
     const {articleStore} = useStores();
-    const {articles} = articleStore
+    const {articles} = articleStore;
 
     const renderItem = ({item}) => (
         <ArticleItem
@@ -34,7 +35,7 @@ const BookmarkScreen = () => {
             />
         </SafeAreaView>
     )
-};
+})
 
 const styles = StyleSheet.create({
     container: {
