@@ -41,4 +41,15 @@ export class ArticleStore {
         });
     }
 
+    @action
+    update = (id, title, content) => {
+        const newArticles = [...this.articles];
+        const index = newArticles.findIndex(a => {
+            return a.id === id;
+        });
+        newArticles[index].title = title;
+        newArticles[index].content = content;
+        this.articles = newArticles;
+    }
+
 }

@@ -7,20 +7,17 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ViewHeader from 'components/ViewHeader';
-import {useNavigation, useRoute} from '@react-navigation/core';
-import {useStores} from '../stores/RootStore';
+import {useStores} from 'stores/RootStore';
+import {observer} from 'mobx-react';
 
-const ViewScreen = () => {
+const ViewScreen = observer(({navigation, route}) => {
 
     const {articleStore} = useStores();
-    const navigation = useNavigation();
-    const route = useRoute();
-
     const {id} = route.params;
     const article = articleStore.getArticle(id);
 
     const handleLongPress = () => {
-        navigation.navigate('Edit')
+        navigation.navigate('Edit', {id: id})
     }
 
     return (
@@ -43,7 +40,7 @@ const ViewScreen = () => {
             </ScrollView>
         </SafeAreaView>
     )
-}
+})
 
 const styles = StyleSheet.create({
     container: {

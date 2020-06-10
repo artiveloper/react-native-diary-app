@@ -1,20 +1,29 @@
 import React from 'react'
-import {StyleSheet, TextInput, View,} from 'react-native'
+import {
+    StyleSheet,
+    TextInput,
+    View,
+    Text,
+} from 'react-native'
 import {SafeAreaView} from 'react-native-safe-area-context';
 import EditHeader from 'components/EditHeader';
 import {useStores} from 'stores/RootStore';
-import {useNavigation} from '@react-navigation/core';
 
-const EditScreen = () => {
-
-    const navigation = useNavigation();
+const EditScreen = ({navigation, route}) => {
 
     const {articleStore} = useStores();
+    const {
+        add,
+        update
+    } = articleStore;
 
-    const {add} = articleStore;
+    const id = route.params ? route.params.id : -1;
+    const article = articleStore.articles.find(a => {
+        return a.id === id;
+    })
 
-    let title = '';
-    let content = '';
+    let title = article ? article.title : '';
+    let content = article ? article.content : '';
 
     return (
         <SafeAreaView style={styles.container}>
@@ -24,7 +33,11 @@ const EditScreen = () => {
                         alert('데이터를 입력해주세요')
                         return;
                     }
-                    add(title, content);
+                    if (id > -1) {
+                        update(id, title, content);
+                    } else {
+                        add(title, content);
+                    }
                     navigation.goBack();
                 }}
             />
@@ -35,7 +48,9 @@ const EditScreen = () => {
                     onChangeText={(text) => {
                         title = text;
                     }}
-                />
+                >
+                    {title}
+                </TextInput>
                 <View style={styles.divider}/>
                 <TextInput
                     style={styles.content}
@@ -44,7 +59,9 @@ const EditScreen = () => {
                     onChangeText={(text) => {
                         content = text;
                     }}
-                />
+                >
+                    {content}
+                </TextInput>
             </View>
         </SafeAreaView>
     );
