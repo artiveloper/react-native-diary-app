@@ -8,8 +8,9 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import EditHeader from 'components/EditHeader';
 import {useStores} from 'stores/RootStore';
+import {observer} from 'mobx-react';
 
-const EditScreen = ({navigation, route}) => {
+const EditScreen = observer(({navigation, route}) => {
 
     const {articleStore} = useStores();
     const {
@@ -65,7 +66,7 @@ const EditScreen = ({navigation, route}) => {
             </View>
         </SafeAreaView>
     );
-};
+});
 
 const styles = StyleSheet.create({
     container: {
