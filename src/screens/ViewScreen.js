@@ -14,7 +14,8 @@ const ViewScreen = observer(({navigation, route}) => {
 
     const {articleStore} = useStores();
     const {id} = route.params;
-    const article = articleStore.getArticle(id);
+    const {toggle, getArticle} = articleStore;
+    const article = getArticle(id);
 
     const handleLongPress = () => {
         navigation.navigate('Edit', {id: id})
@@ -24,6 +25,8 @@ const ViewScreen = observer(({navigation, route}) => {
         <SafeAreaView style={styles.container}>
             <ViewHeader
                 title={article.title}
+                bookmarked={article.bookmarked}
+                bookmark={() => toggle(id)}
             />
             <ScrollView>
                 <TouchableOpacity

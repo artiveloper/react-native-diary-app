@@ -6,9 +6,9 @@ import {
     StyleSheet,
 } from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
-import {useNavigation} from '@react-navigation/core';
+import {useNavigation} from '@react-navigation/native';
 
-const ViewHeader = ({title}) => {
+const ViewHeader = ({title, bookmarked, bookmark}) => {
 
     const navigation = useNavigation();
 
@@ -30,8 +30,9 @@ const ViewHeader = ({title}) => {
             </Text>
             <TouchableOpacity
                 activeOpacity={0.8}
+                onPress={bookmark}
             >
-                <Ionicons name="md-heart-empty" size={24} color="#DA5746" />
+                <Ionicons name={bookmarked ? 'md-heart' : 'md-heart-empty'} size={24} color="#DA5746" />
             </TouchableOpacity>
         </View>
     )

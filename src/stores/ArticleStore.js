@@ -52,4 +52,14 @@ export class ArticleStore {
         this.articles = newArticles;
     }
 
+    @action
+    toggle = (id) => {
+        const newArticles = [...this.articles];
+        const index = newArticles.findIndex(a => {
+            return a.id === id;
+        });
+        newArticles[index].bookmarked = !newArticles[index].bookmarked;
+        this.articles = newArticles;
+    }
+
 }
