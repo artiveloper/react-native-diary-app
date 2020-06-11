@@ -1,26 +1,17 @@
+import {AsyncStorage} from 'react-native';
 import {action, observable} from 'mobx';
+import Reactotron from 'reactotron-react-native';
 
 export class ArticleStore {
+
+    @observable
+    isLoading = false;
 
     @observable
     id = 0;
 
     @observable
-    articles = [
-        {
-            id: 1,
-            title: '청춘의 문장들',
-            content: '사이에 있는 것들, 쉽게 바뀌는 것들, 덧없이 사라지는 것들이 여전히 내 마음을 잡아끈다.',
-            date: '2019년 4월 7일',
-            bookmarked: true,
-        },
-        {
-            id: 2,
-            title: '문장들',
-            content: '내게도 꿈이라는 것이 몇 개 있다.',
-            date: '2019년 4월 7일',
-        }
-    ]
+    articles = [];
 
     @action
     add = (title, content) => {
@@ -33,6 +24,7 @@ export class ArticleStore {
             bookmarked: false,
             date: `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate()}일`,
         }].concat(this.articles);
+        this.save();
     }
 
     getArticle = (id) => {
@@ -50,6 +42,7 @@ export class ArticleStore {
         newArticles[index].title = title;
         newArticles[index].content = content;
         this.articles = newArticles;
+        this.save();
     }
 
     @action
@@ -60,6 +53,23 @@ export class ArticleStore {
         });
         newArticles[index].bookmarked = !newArticles[index].bookmarked;
         this.articles = newArticles;
+        this.save();
+    }
+
+    save = () => {
+        AsyncStorage.setItem('@diary', JSON.stringify(this.articles));
+    }
+
+    load = async () => {
+        this.isLoading = true;
+
+        const data = await AsyncStorage.getItem('@diary');
+        if (data) {
+            this.articles = JSON.parse(data);
+            Reactotron.log('articles from load :', this.articles)
+        }
+
+        this.isLoading = false;
     }
 
 }
